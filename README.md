@@ -37,7 +37,7 @@ GravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterB
 
 ## 环境要求
 
-- **Unreal Engine 4.26**（需与 `.uproject` 中 `EngineAssociation` 一致）
+- **Unreal Engine 4.26**（需与 .uproject 中 EngineAssociation 一致）
 - Windows 10/11（开发与打包目标平台）
 - 建议显存 ≥ 4 GB
 
@@ -47,7 +47,7 @@ GravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterB
 
 1. 克隆仓库：
    ```bash   ”“bash   “bash”;“bashBash ”&ldquo```bash   ”“bash   “bash”;“bash
-   git clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.git
+   git clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.git
    cd DirectionalGravity
    ```
 2. 双击 `DirectionalGravityforPhys.uproject`，在启动器中选择 **UE 4.26** 打开。
