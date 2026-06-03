@@ -9,16 +9,6 @@
 | 物理 | PhysX |
 | 默认地图 | `GravityMap` |
 | Windows 打包 | 2025.05.13 |
-
----
-
-## 演示 / Demo
-
-> 建议将 30～60 秒玩法录屏上传到 **GitHub Releases** 或 B 站，并在简历里同时放「仓库链接 + 视频链接」。
-
-<!-- 发布视频后取消注释并替换链接 -->
-<!-- [![Demo Video](https://img.shields.io/badge/Demo-Video-red)](https://你的视频链接) -->
-
 ---
 
 ## 核心玩法
@@ -32,16 +22,16 @@
 ### 架构示意
 
 ```
-GravityVolume (Box / Spherical)
-        │ Overlap / Tick
+GravityVolume (Box / Spherical)重力体积（盒子/球形）
+        │ Overlap / Tick   │重叠/重叠
         ▼
-GravityReceiver (Component)
+GravityReceiver (Component)GravityReceiver(组件)
         │
         ▼
-GravityCharacterBase → FP / TP
+GravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TP
 ```
 
-更完整的设计说明、面试问答见 [`docs/TECHNICAL.md`](docs/TECHNICAL.md)。
+更完整的设计说明、答见 [`docs/TECHNICAL.md`](docs/TECHNICAL.md)。
 
 ---
 
@@ -56,8 +46,8 @@ GravityCharacterBase → FP / TP
 ## 快速开始
 
 1. 克隆仓库：
-   ```bash
-   git clone https://github.com/<你的用户名>/DirectionalGravity.git
+   ```bash   ”“bash
+   git clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.git
    cd DirectionalGravity
    ```
 2. 双击 `DirectionalGravityforPhys.uproject`，在启动器中选择 **UE 4.26** 打开。
@@ -68,10 +58,9 @@ GravityCharacterBase → FP / TP
 
 | 操作 | 按键 |
 |------|------|
-| 移动 | W / A / S / D |
-| 视角 | 鼠标 |
+| 移动 | W / A / S / D || w / a / s / d |
 | 跳跃 | Space |
-| 交互 | E |
+| 交互 | I / K / J / L |
 
 ---
 
@@ -80,20 +69,19 @@ GravityCharacterBase → FP / TP
 ```
 DirectionalGravityforPhys.uproject   # 工程入口
 Config/                              # 引擎、输入、地图与 GameMode 配置
-Content/
+Content/   内容/
   DirectionalGravity/                # ★ 自研：重力系统、角色、关卡
   Blueprints/                        # Tube 关卡系统
   Sch/                               # UI、相机等
   StarterContent/                    # UE 模板资源（非自研）
-docs/
+docs/   文档/
   TECHNICAL.md                       # 技术文档（架构、面试要点）
 ```
 
-> 本仓库**不包含** `WindowsNoEditor/` 打包目录（体积大、不适合 Git）。需要可执行文件时，请在本地 **Package Project → Windows 64-bit**，或从 [Releases](https://github.com/<你的用户名>/DirectionalGravity/releases) 下载（若已上传）。
-
+> 本仓库**不包含** `WindowsNoEditor/` 打包目录（体积大、不适合 Git）。需要可执行文件时，请联系作者。
 ---
 
-## 技术亮点（简历可用）
+## 技术亮点
 
 - 设计 **Volume + Receiver** 组件化方向重力框架，支持盒形 / 球形两种策略，角色逻辑与场类型解耦。
 - 实现重力对齐移动、地面检测、跳跃与相机插值对齐，抽象 Base 并扩展 FP/TP。
@@ -109,5 +97,5 @@ docs/
 
 ## 作者
 
-<!-- 发布后替换为你的 GitHub 用户名 -->
+<Freshman -->
 **GitHub**: [@你的用户名](https://github.com/你的用户名)
