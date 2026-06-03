@@ -1,6 +1,4 @@
-# DirectionalGravity 技术文档
-
-> 快速回忆项目技术细节，覆盖常见面试问题。  
+# DirectionalGravity 技术文档 
 > 引擎：**Unreal Engine 4.26** | 语言：**Blueprint（100%）** | 物理：**PhysX**
 
 ---
@@ -24,7 +22,7 @@
 DirectionalGravityforPhys/
 ├── DirectionalGravityforPhys.uproject
 ├── Config/                          # 引擎/输入/编辑器配置
-├── Content/                         # ⚠️ 当前 Desktop 副本缺失，完整工程在 D:/UE/program/...
+├── Content/                         # 当前副本缺失，完整工程联系作者...
 │   ├── DirectionalGravity/          # ★ 核心自研内容
 │   │   ├── Blueprints/
 │   │   │   ├── DirectionalGravityGameMode
@@ -129,7 +127,7 @@ UE 默认只对 RigidBody 施加 `-Z` 方向重力。方向重力需要：
 
 ### 4.2 盒形重力场（Box）
 
-**算法（推断，基于常见实现）：**
+**算法：**
 
 ```
 OnOverlapBegin(Receiver):
@@ -140,8 +138,6 @@ Each Tick:
         GravityDir = Box.GetGravityDirection()  // 固定单位向量，如 -Forward
         Strength = Box.GravityStrength
 ```
-
-**典型用途：** 墙面行走、天花板倒立、走廊内统一方向
 
 ### 4.3 球形重力场（Spherical）
 
@@ -170,9 +166,6 @@ Each Tick for Receiver at Position P:
    - GetUpVector() → -GetGravityDirection()
    - GetGravityStrength() → float
 ```
-
-**面试点：** 多 Volume 重叠时如何处理？常见方案：优先级数值、最小体积优先、最近距离优先、Blend 插值。
-
 ### 4.5 重力对齐角色控制器
 
 `BP_GravityCharacterBase` 编辑器中可见的功能分区：
@@ -180,7 +173,6 @@ Each Tick for Receiver at Position P:
 | 模块 | 功能 |
 |------|------|
 | **Moving** | 将 WASD 输入投影到垂直于重力的平面；沿 `WalkAcceleration` 加速 |
-| **Turning** | 鼠标/手柄输入控制 Yaw；可选 Pitch 限制 |
 | **GroundDetection** | 沿 `-Up` 方向 SphereTrace/LineTrace 检测地面 |
 | **Actions** | Jump：沿 `-GravityDirection` 施加冲量 |
 | **Camera** | FP/TP 各自处理 CameraBoom 或 FP Camera 相对 Up 的旋转 |
@@ -202,8 +194,6 @@ GroundNormal = Hit.Normal
 TargetRotation = MakeRotFromZX(Up, ForwardProjectedOnPlane)
 Character.SetActorRotation(RInterpTo(Current, Target, DeltaTime, InterpSpeed))
 ```
-
-**面试点：** 为什么用 `RInterpTo/Slerp` 而不是瞬间 SetRotation？—— 避免重力切换时相机/模型突变，提升手感。
 
 ### 4.6 移动输入投影
 
@@ -258,10 +248,8 @@ DefaultGravityZ=0.000000   # ★ 关键：关闭默认重力
 |------|------|
 | MoveForward | W/S |
 | MoveRight | A/D |
-| Turn | Mouse X/Y |
+| Turn | I/K/J/L |
 | Jump | Space |
-| Use | E |
-| Fire | LMB（可能为模板残留） |
 
 ---
 
@@ -274,76 +262,6 @@ DefaultGravityZ=0.000000   # ★ 关键：关闭默认重力
 | **策略模式** | 不同 Volume 类型提供不同重力计算，Character 无感知 |
 | **函数库** | `BP_MathHelpers` 集中数学逻辑，避免 Graph 重复 |
 | **数据驱动** | TubeSpawner 的 `TubeClass` 配置化关卡段 |
-
----
-
-## 7. 面试官可能问的问题 & 参考答案
-
-### 基础理解
-
-**Q1：这个项目做了什么？**  
-A：一个 UE4 物理平台 Demo，核心是自定义方向重力。通过重力场 Actor 改变局部重力方向，角色移动、跳跃、地面检测和相机都跟随本地 Up 向量，实现墙面行走和球形引力等效果。
-
-**Q2：为什么不用 CharacterMovement 自带的 GravityScale？**  
-A：`GravityScale` 只能改大小，不能改方向。方向重力需要自定义移动逻辑或完全手动控制 Velocity/Force，并自行处理 Rotation 对齐。
-
-**Q3：PhysX 和 Chaos 有什么区别？你用的哪个？**  
-A：UE4.26 默认 PhysX。UE5 起默认 Chaos。本项目基于 PhysX；重力自定义逻辑与物理后端无关，迁移 UE5 主要是 API 和默认后端变化。
-
-### 架构设计
-
-**Q4：Volume 和 Receiver 分离的好处？**  
-A：解耦。Volume 只管「场」，Receiver 只管「谁受影响」。同一套 Volume 可作用于玩家、物理道具、AI；新增 Volume 类型不用改 Character。
-
-**Q5：多个重力场重叠怎么办？**  
-A：常见方案：① 最高 Priority 胜出；② 按重叠体积比例 Blend 方向；③ 最近 Volume 中心优先。需在 Blueprint 中明确策略，避免方向抖动。面试可主动说「我会加 hysteresis/插值平滑」。
-
-**Q6：重力切换时如何避免相机剧烈抖动？**  
-A：对 Up 向量/Rotation 做 `VInterpTo/RInterpTo`；限制每帧最大旋转角；切换瞬间短暂锁定输入；FP 和 TP 可不同 InterpSpeed。
-
-### 实现细节
-
-**Q7：怎么做地面检测？**  
-A：沿当前重力反方向（即 Up 的反方向）做 LineTrace 或 SphereTrace，检测距离内是否有可站立面。地面法线可用于斜坡处理。
-
-**Q8：跳跃方向怎么算？**  
-A：沿 `-GravityDirection`（即 Up 方向）施加冲量：`LaunchCharacter(Up * JumpStrength)` 或 `Velocity.Z` 类比改为沿 Up 分量。
-
-**Q9：第一人称和第三人称如何复用？**  
-A：`BP_GravityCharacterBase` 包含全部重力逻辑；FP 子类只改 Camera 挂载；TP 子类换 Mesh + AnimBP，动画需考虑 Speed 在切平面上的投影。
-
-**Q10：球形重力在球心附近会有什么问题？**  
-A：方向向量趋近零，Normalize 不稳定。解决：设最小半径阈值，在阈值内禁用重力或锁定最后一帧有效方向。
-
-### 工程与扩展
-
-**Q11：如果改成 C++，你怎么设计？**  
-A：
-```cpp
-// 示例类设计
-UCLASS()
-class UGravityReceiverComponent : public UActorComponent { ... };
-
-UCLASS()
-class AGravityVolumeBase : public AActor { virtual FVector GetGravityAt(const FVector& P) const PURE_VIRTUAL(...); };
-
-UCLASS()
-class AGravityVolumeBox : public AGravityVolumeBase { ... };
-
-UCLASS()
-class AGravityVolumeSpherical : public AGravityVolumeBase { ... };
-```
-Character 持有 `UGravityReceiverComponent*`，Tick 中读取重力并更新 Movement。
-
-**Q12：如何优化性能？**  
-A：Volume 用 Overlap 事件而非每帧全扫描；Receiver 仅在 Volume 变化时更新；GroundTrace 不必每帧，可每 2～3 帧；大量 Volume 用 Spatial Hash 或 Grid。
-
-**Q13：如何迁移到 UE5？**  
-A：打开项目升级 → 替换 PhysX API 调用 → 测试 Chaos 下 Force/Velocity 行为 → Enhanced Input 替换 Legacy Input → Lumen/Nanite 可选。
-
-**Q14：这个项目最大的不足是什么？**  
-A（诚实回答）：纯 Blueprint、规模小、无 C++、当前副本缺 Content 源文件。但重力框架思路完整，具备迁移和扩展基础。
-
 ---
 
 ## 8. 与同类游戏/方案对比
@@ -356,31 +274,3 @@ A（诚实回答）：纯 Blueprint、规模小、无 C++、当前副本缺 Cont
 | UE5 `GlobalGravity`（如有插件/自定义） | 引擎级 | UE4.26 无开箱方案 |
 
 ---
-
-## 9. 快速回忆 Checklist（面试前 5 分钟）
-
-- [ ] 引擎 UE4.26，PhysX，**DefaultGravityZ = 0**
-- [ ] 核心：**Volume（场）→ Receiver（组件）→ Character（响应）**
-- [ ] 两种场：**Box 固定方向 / Spherical 径向**
-- [ ] 角色模块：**Moving / GroundDetection / Turning / Actions**
-- [ ] 双视角：**Base → FP / TP**
-- [ ] 工具：**BP_MathHelpers**，物理材质 Walk/Slide
-- [ ] 关卡：**Tube + Spawner**
-- [ ] 地图：**GravityMap, DemoMap**
-- [ ] 发布：**Windows 2025.05.13**
-- [ ] 短板：**无 C++，Content 源文件需找回，规模 Demo 级**
-
----
-
-## 10. 后续增强建议（若继续迭代）
-
-1. 核心重力模块迁移 C++（`UGravityReceiverComponent`）
-2. 升级到 UE5 + Enhanced Input
-3. 多 Volume Blend + 平滑插值
-4. 录制 Demo 视频 + GitHub 开源（含 `.gitignore`）
-5. 增加 1～2 个可玩关卡展示完整流程
-6. 清理冗余 `BP_GameMode`、`BP_Player` 等早期资源
-
----
-
-*本文档基于项目 Config、Cook 清单、Editor 元数据推断 Blueprint 逻辑；具体节点连线请以完整 Content 工程为准。*
