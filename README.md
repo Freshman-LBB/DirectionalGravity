@@ -16,7 +16,7 @@
 - **方向重力**：关闭世界默认重力（`DefaultGravityZ = 0`），由重力场 Actor 向角色下发局部重力方向与强度。
 - **两种重力场**：盒形（固定方向）、球形（径向指向/背离球心）。
 - **重力对齐角色**：移动、跳跃、地面检测、相机旋转均跟随当前「Up」向量。
-- **双视角**：第一人称 / 第三人称共用 `BP_GravityCharacterBase` 逻辑。
+- **双视角**：第一人称 / 第三人称共用 BP_GravityCharacterBase 逻辑。
 - **模块化关卡**：Tube 分段 + Spawner 动态生成管道式关卡。
 
 ### 架构示意
@@ -46,7 +46,7 @@ GravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterB
 ## 快速开始
 
 1. 克隆仓库：
-   ```bash   ”“bash   “bash”;“bash
+   ```bash   ”“bash   “bash”;“bashBash ”&ldquo```bash   ”“bash   “bash”;“bash
    git clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.git
    cd DirectionalGravity
    ```
