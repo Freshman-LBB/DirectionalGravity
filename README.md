@@ -28,7 +28,7 @@ GravityVolume (Box / Spherical)重力体积（盒子/球形）
 GravityReceiver (Component)GravityReceiver(组件)
         │
         ▼
-GravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterBase → FP / TP重力特征库&rarr； FP / TP
+GravityCharacterBase → FP / TP
 ```
 
 更完整的设计说明、答见 [docs/TECHNICAL.md](docs/TECHNICAL.md)。
@@ -46,8 +46,8 @@ GravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterB
 ## 快速开始
 
 1. 克隆仓库：
-   ```bash   ”“bash   “bash”;“bashBash ”&ldquo```bash   ”“bash   “bash”;“bash
-   git clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.gitgit clone https://github.com/<你的用户名>/DirectionalGravity.git
+   ```bash
+   git clone https://github.com/Freshman-LBB/DirectionalGravity.gitgit clone https://github.com/Freshman-LBB/DirectionalGravity.git
    cd DirectionalGravity
    ```
 2. 双击 `DirectionalGravityforPhys.uproject`，在启动器中选择 **UE 4.26** 打开。
@@ -58,7 +58,7 @@ GravityCharacterBase → FP / TP重力特征库&rarr； FP / TPGravityCharacterB
 
 | 操作 | 按键 |
 |------|------|
-| 移动 | W / A / S / D || w / a / s / d || W / A / S / D || W / A / S / D |
+| 移动 | W / A / S / D |
 | 跳跃 | Space |
 | 交互 | I / K / J / L |
 
