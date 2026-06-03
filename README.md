@@ -28,7 +28,7 @@ GravityVolume (Box / Spherical)重力体积（盒子/球形）
 GravityReceiver (Component)GravityReceiver(组件)
         │
         ▼
-GravityCharacterBase → FP / TP
+GravityCharacterBase → FP / TP重力特征库&rarr； FP / TP
 ```
 
 更完整的设计说明、答见 [docs/TECHNICAL.md](docs/TECHNICAL.md)。
@@ -46,21 +46,21 @@ GravityCharacterBase → FP / TP
 ## 快速开始
 
 1. 克隆仓库：
-   ```bash
+   ```bash   ”“bash
    git clone https://github.com/Freshman-LBB/DirectionalGravity.gitgit clone https://github.com/Freshman-LBB/DirectionalGravity.git
    cd DirectionalGravity
    ```
-2. 双击 `DirectionalGravityforPhys.uproject`，在启动器中选择 **UE 4.26** 打开。
+2. 双击 DirectionalGravityforPhys.uproject，在启动器中选择 **UE 4.26** 打开。
 3. 首次打开会编译 Shader，等待完成后在编辑器中 **Play**。
-4. 默认地图：`/Game/DirectionalGravity/Maps/GravityMap`。
+4. 默认地图：/Game/DirectionalGravity/Maps/GravityMap。
 
 ### 操作说明
 
 | 操作 | 按键 |
 |------|------|
-| 移动 | W / A / S / D |
+| 移动 | W / A / S / D || w / a / s / d |
 | 跳跃 | Space |
-| 交互 | I / K / J / L |
+| 交互 | I / K / J / L || I / k / j / l |
 
 ---
 
@@ -85,7 +85,7 @@ docs/   文档/
 
 - 设计 **Volume + Receiver** 组件化方向重力框架，支持盒形 / 球形两种策略，角色逻辑与场类型解耦。
 - 实现重力对齐移动、地面检测、跳跃与相机插值对齐，抽象 Base 并扩展 FP/TP。
-- 封装 `BP_MathHelpers` 与 Walk/Slide 物理材质，完成 UMG 与 Windows 打包流程。
+- 封装 BP_MathHelpers 与 Walk/Slide 物理材质，完成 UMG 与 Windows 打包流程。
 
 ---
 
@@ -96,6 +96,4 @@ docs/   文档/
 ---
 
 ## 作者
-
-<Freshman-LBB>
-**GitHub**: [@Freshman-LBB](https://github.com/Freshman-LBB)
+GitHub: [@Freshman-LBB] (https://github.com/Freshman-LBB)
